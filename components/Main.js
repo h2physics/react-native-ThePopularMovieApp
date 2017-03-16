@@ -4,6 +4,7 @@ import{
   Image,
   Text,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import axios from 'axios';
 
@@ -18,27 +19,12 @@ var TYPE_PARAMS = "popular";
 var APIKEY = "5f367c06670ce8648e31b20fd81bf1f5";
 var APIKEY_PARAMS = "api_key";
 
-var DATA = [
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-  {res: '../Image/image.jpg', name: 'hello'},
-]
-
 export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataSource: null,
+      movie: null,
     }
     this.getMovieFromAPI = this.getMovieFromAPI.bind(this)
   }
@@ -62,7 +48,10 @@ export default class Main extends Component {
     console.log(resImage);
 
     return(
-      <View
+      <TouchableOpacity
+        onPress = {() => {
+          this.props.onClick(item)
+        }}
         style = {styles.parent}>
         <Image
           source = {{ uri: resImage }}
@@ -72,7 +61,7 @@ export default class Main extends Component {
           style = {styles.title}>
           {item.title}
         </Text>
-      </View>
+      </TouchableOpacity>
     )
   }
   componentDidMount() {
